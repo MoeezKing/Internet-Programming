@@ -1,30 +1,51 @@
-public class MyThread extends Thread{
-    boolean isOdd;
-    int length;
-    MyThread(String name,boolean isOdd,int length){
-        super(name);
-        this.isOdd=isOdd;
-        this.length=length;
+public class Mythread extends Thread{
+
+    int[] numr;
+    Mythread(int[] num) {
+        this.numr = num;
     }
     @Override
-    public void run(){
-        if(isOdd){
-            for(int i=1;i<=length;i+=2){
-                System.out.println(i);
+    public  void run() {
+            missingInteger(numr);
+    }
+    static void missingInteger(int[] num) {
+
+
+            //finding maximum and minimum number
+            int max = num[0];
+            int min = num[0];
+            for (int j : num) {
+                if (j > max)
+                    max = j;
+
+                if (j < min)
+                    min = j;
             }
-        }else{
-            for(int i=0;i<=length;i+=2){
-                System.out.println(i);
+
+            //declaring array of boolean having length equal max
+            boolean[] contain = new boolean[max];
+
+            //setting true value for those which are available in num corresponding to index of contain
+            for (int i = 0; i < num.length; i++) {
+                contain[(num[i] - 1)] = true;
             }
+
+            //printing number which where not available(was false in contain array corresponding to num array value
+            System.out.println("Following is the number not included between " + min + " and " + max + " in given array of integer");
+            for (int i = 0; i < contain.length; i++) {
+                if (contain[i] == false)
+                    System.out.println(i + 1);
             }
         }
-        @Override
-    public String toString(){
-        if(isOdd){
-            return "Odd Thread whose length is  " + length;
-        }else {
-            return "Even Thread whose length is  " + length;
         }
-        }
+
+/*   -- calling main function
+public class Main {
+    public static void main(String[] args) {
+        int[] a = {7, 5, 6, 1, 4, 2};
+        Mythread t=new Mythread(a);
+        t.start();
     }
 
+}
+*/
