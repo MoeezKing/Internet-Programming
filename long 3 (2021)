@@ -1,0 +1,28 @@
+import java.util.Scanner;
+
+public class Mythread extends Thread {
+    String name;
+
+    Mythread(String name) {
+        super(name);
+    }
+
+    @Override
+    public void run() {
+        int number=input();
+        double factorial=1;
+        for(int i=number;i>=1;i--){
+            factorial=factorial*i;
+        }
+        System.out.println("Factorial of "+number+" is "+factorial);
+    }
+    public int input(){
+        System.out.println("Enter the positive number to print its factorial");
+        Scanner sn=new Scanner(System.in);
+        int num=sn.nextInt();
+        if(num<0)
+            return input();
+        else
+            return num;
+    }
+}
