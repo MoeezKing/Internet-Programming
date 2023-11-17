@@ -1,0 +1,45 @@
+<% page import="java.sql.*" %>
+<html>
+<body>
+<% 
+   String driver="com.mysql.jdbc.Driver";
+   String db_url="jdbc:mysql://localhost:3306/";
+   String db_name="Database";
+   String db_id="root";
+   String db_pass="";
+   
+   Connection con=null;
+   Statement state=null;
+   ResultSet rs=null;
+
+   String ddList="<select>\n";
+
+   try{
+   	Class.forName(driver);
+	}catch(Exception e){
+		e.printStackTrace;}
+
+   try{
+	con=DriverManager.getConnection(db_url+db_name,db_id,db_pass);
+	state=con.getStatement();
+	String query="SELECT * FROM Corona_info";
+	rs=state.executeQuery(query);
+
+	while(rs.next()){
+	String pn=rs.getString("patient_name");
+	String pc=rs.getString("patient_cnic");
+	String phl=rs.getstring("patient_home_location");
+	ddList+="\n<option>"+pn+":"+pc+"-->"+pnl+"</option>";
+	}
+
+	ddList+="<\n</select>";
+	}catch(SQLEXception e){
+		e.printStackTrace();}
+
+%>
+<center>
+	<h3>CORONA Patient</h3>
+	<%=ddList%>
+</center>
+</body>
+</html>
