@@ -1,0 +1,48 @@
+<% page import="java.sql.*" %>
+<html>
+<body>
+<% 
+  String driver="com.mysql.jdbc.Driver";
+  String db_url="jdbc:mysql://localhost:3306/";
+  String db_name="sweets";
+  String db_id="root";
+  String db_pass="";
+
+  Connection con=null;
+  Statement state=null;
+  ResultSet rs=null;
+
+  String table="<table bordercolor="blue">\n<tr>\n<th>id</th><th>name</th><th>color</th><th>image</th>\n</tr>\n";
+
+  try{
+	Class.forName(driver);
+	}catch(Exception e){
+		e.printStackTrace();}
+  try{
+	con=DriverManager.getConnection(db_url+db_name,db_id,db_pass);
+	state=con.getStatement();
+	String query="SELECT * FROM candy";
+	rs=state.executeQuery(query);
+	
+	while(rs.next()){
+	int id=rs.getInt("id");
+	String name=rs.getString("name");
+	String color=rs.getString("color");
+	String image=rs.getString("image");
+
+	table+="<tr>\n<td>"+id+"</td>\n<td>"+name+"</td>\n<td>"+color+"</td>\n<td>"+image+"</td>\n</tr>";
+	}
+
+	table+="\n</table>";
+	}catch(SQLException e){
+		System.out.println("sql connection error");}
+
+%>
+<center>
+<h1>Candy</h1>
+<%=table%>
+</center>
+
+</body>
+</html>
+	   
