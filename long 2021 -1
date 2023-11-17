@@ -1,0 +1,38 @@
+import java.util.*;
+
+public class Main{
+    public static void main(String[] args){
+        String str=input();
+        duplicateSearch(str);
+    }
+    public static String input(){
+        System.out.print("Enter a String to know the duplicate characters in it.");
+        Scanner s=new Scanner(System.in);
+        String str=s.nextLine();
+
+        return str;
+    }
+    public static void duplicateSearch(String str){
+        char[] sarray=str.toCharArray();
+        Map<Character,Integer> map=new HashMap<>();
+        for(char ch: sarray){
+            if(ch==' ') {
+                continue;
+            }
+
+            if(map.containsKey(ch)){
+                int value=map.get(ch)+1;
+                map.replace(ch,value);
+            }else{
+                map.put(ch,1);
+            }
+        }
+        System.out.println("Duplicate charaters are as follow");
+        for(char ch:map.keySet()){
+            int value=map.get(ch);
+            if(value>1)
+                System.out.println(ch+" appears "+value+" times");
+        }
+
+    }
+}
